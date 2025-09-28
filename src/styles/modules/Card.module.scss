@@ -1,0 +1,165 @@
+@use '../scss/variables' as *;
+@use '../scss/mixins' as *;
+
+.card {
+  @include card();
+  
+  &.elevated {
+    @include hover-lift(6px);
+  }
+  
+  &.gradient {
+    background: $gradient-primary;
+    color: white;
+    
+    &:hover {
+      background: $gradient-ocean;
+    }
+  }
+  
+  &.glass {
+    @include glass-effect();
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  &.animated {
+    animation: fadeIn 0.6s ease-out;
+  }
+}
+
+.cardHeader {
+  padding-bottom: $spacing-md;
+  border-bottom: 1px solid $color-bg-muted;
+  margin-bottom: $spacing-md;
+  
+  .title {
+    @include gradient-text($gradient-primary);
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    margin: 0;
+    
+    &.large {
+      font-size: $font-size-3xl;
+    }
+  }
+  
+  .subtitle {
+    color: $color-text-secondary;
+    font-size: $font-size-sm;
+    margin-top: $spacing-xs;
+  }
+}
+
+.cardContent {
+  line-height: $line-height-relaxed;
+  
+  p {
+    margin-bottom: $spacing-md;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.cardFooter {
+  margin-top: $spacing-lg;
+  padding-top: $spacing-md;
+  border-top: 1px solid $color-bg-muted;
+  display: flex;
+  gap: $spacing-md;
+  align-items: center;
+  justify-content: space-between;
+  
+  @include responsive(sm) {
+    flex-direction: row;
+  }
+}
+
+.cardGrid {
+  display: grid;
+  gap: $spacing-lg;
+  grid-template-columns: 1fr;
+  
+  @include responsive(sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include responsive(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  @include responsive(xl) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .cardItem {
+    &:nth-child(1) { animation-delay: 0.1s; }
+    &:nth-child(2) { animation-delay: 0.2s; }
+    &:nth-child(3) { animation-delay: 0.3s; }
+    &:nth-child(4) { animation-delay: 0.4s; }
+    &:nth-child(5) { animation-delay: 0.5s; }
+    &:nth-child(6) { animation-delay: 0.6s; }
+  }
+}
+
+.imageCard {
+  overflow: hidden;
+  
+  .cardImage {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform $transition-normal;
+    
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+  
+  .cardImageOverlay {
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.7));
+      opacity: 0;
+      transition: opacity $transition-normal;
+    }
+    
+    &:hover::after {
+      opacity: 1;
+    }
+  }
+}
+
+.statsCard {
+  @include card($spacing-xl);
+  text-align: center;
+  
+  .statsNumber {
+    font-size: $font-size-4xl;
+    font-weight: $font-weight-bold;
+    @include gradient-text($gradient-sunset);
+    display: block;
+    margin-bottom: $spacing-sm;
+  }
+  
+  .statsLabel {
+    color: $color-text-secondary;
+    font-size: $font-size-sm;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  &:hover {
+    .statsNumber {
+      animation: pulse 1s ease-in-out;
+    }
+  }
+}

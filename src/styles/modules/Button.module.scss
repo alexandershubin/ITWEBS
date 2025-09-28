@@ -1,0 +1,184 @@
+@use '../scss/variables' as *;
+@use '../scss/mixins' as *;
+
+.button {
+  @include button-base;
+  padding: $spacing-sm $spacing-lg;
+  font-size: $font-size-base;
+  
+  &.primary {
+    @include button-variant($color-primary, white, #2563eb);
+  }
+  
+  &.secondary {
+    @include button-variant($color-secondary, white, #4f46e5);
+  }
+  
+  &.success {
+    @include button-variant($color-success, white, #059669);
+  }
+  
+  &.warning {
+    @include button-variant($color-warning, white, #d97706);
+  }
+  
+  &.error {
+    @include button-variant($color-error, white, #dc2626);
+  }
+  
+  &.outline {
+    background: transparent;
+    border: 2px solid $color-primary;
+    color: $color-primary;
+    
+    &:hover:not(:disabled) {
+      background: $color-primary;
+      color: white;
+    }
+  }
+  
+  &.ghost {
+    background: transparent;
+    color: $color-primary;
+    
+    &:hover:not(:disabled) {
+      background: rgba($color-primary, 0.1);
+    }
+  }
+  
+  &.gradient {
+    background: $gradient-primary;
+    background-size: 200% 200%;
+    
+    &:hover:not(:disabled) {
+      animation: gradient-shift 1s ease infinite;
+    }
+  }
+  
+  &.glass {
+    @include glass-effect(0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: $color-text-primary;
+    
+    &:hover:not(:disabled) {
+      @include glass-effect(0.3);
+    }
+  }
+  
+  &.small {
+    padding: $spacing-xs $spacing-md;
+    font-size: $font-size-sm;
+  }
+  
+  &.large {
+    padding: $spacing-md $spacing-xl;
+    font-size: $font-size-lg;
+  }
+  
+  &.icon {
+    padding: $spacing-sm;
+    border-radius: $border-radius-full;
+    
+    &.small {
+      padding: $spacing-xs;
+    }
+    
+    &.large {
+      padding: $spacing-md;
+    }
+  }
+  
+  &.loading {
+    position: relative;
+    color: transparent;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      @include absolute-center;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+    }
+  }
+  
+  &.pulse {
+    animation: pulse 2s infinite;
+  }
+  
+  &.bounce {
+    &:hover:not(:disabled) {
+      animation: bounce 1s;
+    }
+  }
+}
+
+.buttonGroup {
+  display: flex;
+  gap: $spacing-sm;
+  
+  &.vertical {
+    flex-direction: column;
+  }
+  
+  &.attached {
+    gap: 0;
+    
+    .button {
+      border-radius: 0;
+      
+      &:first-child {
+        border-top-left-radius: $border-radius-md;
+        border-bottom-left-radius: $border-radius-md;
+      }
+      
+      &:last-child {
+        border-top-right-radius: $border-radius-md;
+        border-bottom-right-radius: $border-radius-md;
+      }
+      
+      &:not(:last-child) {
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+      }
+    }
+    
+    &.vertical .button {
+      &:first-child {
+        border-radius: $border-radius-md $border-radius-md 0 0;
+      }
+      
+      &:last-child {
+        border-radius: 0 0 $border-radius-md $border-radius-md;
+      }
+      
+      &:not(:last-child) {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+}
+
+.floatingButton {
+  @include button-variant($color-primary, white, #2563eb);
+  position: fixed;
+  bottom: $spacing-xl;
+  right: $spacing-xl;
+  border-radius: $border-radius-full;
+  padding: $spacing-lg;
+  box-shadow: $shadow-xl;
+  z-index: $z-index-fixed;
+  
+  &:hover:not(:disabled) {
+    transform: scale(1.1) translateY(-2px);
+  }
+  
+  @include responsive(sm) {
+    bottom: $spacing-2xl;
+    right: $spacing-2xl;
+  }
+}

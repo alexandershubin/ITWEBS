@@ -1,0 +1,296 @@
+@use '../scss/variables' as *;
+@use '../scss/mixins' as *;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+  
+  &.inline {
+    flex-direction: row;
+    align-items: end;
+    
+    @include responsive(sm) {
+      flex-direction: row;
+    }
+  }
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  
+  &.inline {
+    flex-direction: row;
+    align-items: center;
+    gap: $spacing-md;
+  }
+}
+
+.label {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+  
+  &.required::after {
+    content: ' *';
+    color: $color-error;
+  }
+}
+
+.input {
+  padding: $spacing-sm $spacing-md;
+  border: 2px solid $color-bg-muted;
+  border-radius: $border-radius-md;
+  font-size: $font-size-base;
+  transition: all $transition-normal;
+  background: $color-bg-primary;
+  
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+  }
+  
+  &:hover:not(:disabled) {
+    border-color: #e5e7eb;
+  }
+  
+  &:disabled {
+    background: $color-bg-muted;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+  
+  &.error {
+    border-color: $color-error;
+    
+    &:focus {
+      box-shadow: 0 0 0 3px rgba($color-error, 0.1);
+    }
+  }
+  
+  &.success {
+    border-color: $color-success;
+    
+    &:focus {
+      box-shadow: 0 0 0 3px rgba($color-success, 0.1);
+    }
+  }
+  
+  &.large {
+    padding: $spacing-md $spacing-lg;
+    font-size: $font-size-lg;
+  }
+  
+  &.small {
+    padding: $spacing-xs $spacing-sm;
+    font-size: $font-size-sm;
+  }
+}
+
+.textarea {
+  @extend .input;
+  resize: vertical;
+  min-height: 120px;
+  font-family: inherit;
+}
+
+.select {
+  @extend .input;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right $spacing-sm center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: $spacing-xl;
+  
+  &:focus {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%233b82f6' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  }
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  cursor: pointer;
+  
+  input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    border: 2px solid $color-bg-muted;
+    border-radius: $border-radius-sm;
+    background: $color-bg-primary;
+    cursor: pointer;
+    transition: all $transition-normal;
+    
+    &:checked {
+      background: $color-primary;
+      border-color: $color-primary;
+      background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m13.854 3.646-7.5 7.5L3.646 8.438l.708-.708L6.854 10.23l6.792-6.792z'/%3e%3c/svg%3e");
+    }
+    
+    &:focus {
+      box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+    }
+  }
+  
+  label {
+    cursor: pointer;
+    font-size: $font-size-sm;
+  }
+}
+
+.radio {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  cursor: pointer;
+  
+  input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    border: 2px solid $color-bg-muted;
+    border-radius: $border-radius-full;
+    background: $color-bg-primary;
+    cursor: pointer;
+    transition: all $transition-normal;
+    
+    &:checked {
+      border-color: $color-primary;
+      background: radial-gradient(circle, $color-primary 40%, transparent 40%);
+    }
+    
+    &:focus {
+      box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+    }
+  }
+  
+  label {
+    cursor: pointer;
+    font-size: $font-size-sm;
+  }
+}
+
+.fileInput {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  
+  input[type="file"] {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+  
+  .fileLabel {
+    @include button-variant($color-bg-muted, $color-text-primary, #e5e7eb);
+    border: 2px dashed $color-bg-muted;
+    background: $color-bg-primary;
+    padding: $spacing-lg;
+    text-align: center;
+    transition: all $transition-normal;
+    
+    &:hover {
+      border-color: $color-primary;
+      background: rgba($color-primary, 0.05);
+    }
+    
+    &.dragOver {
+      border-color: $color-primary;
+      background: rgba($color-primary, 0.1);
+    }
+  }
+}
+
+.errorMessage {
+  color: $color-error;
+  font-size: $font-size-sm;
+  margin-top: $spacing-xs;
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  
+  &::before {
+    content: '⚠';
+  }
+}
+
+.helpText {
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
+  margin-top: $spacing-xs;
+}
+
+.inputGroup {
+  position: relative;
+  display: flex;
+  
+  .input {
+    border-radius: 0;
+    
+    &:first-child {
+      border-top-left-radius: $border-radius-md;
+      border-bottom-left-radius: $border-radius-md;
+    }
+    
+    &:last-child {
+      border-top-right-radius: $border-radius-md;
+      border-bottom-right-radius: $border-radius-md;
+    }
+    
+    &:not(:last-child) {
+      border-right: 0;
+    }
+  }
+  
+  .inputAddon {
+    background: $color-bg-muted;
+    border: 2px solid $color-bg-muted;
+    padding: $spacing-sm $spacing-md;
+    @include flex-center;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    
+    &:first-child {
+      border-top-left-radius: $border-radius-md;
+      border-bottom-left-radius: $border-radius-md;
+      border-right: 0;
+    }
+    
+    &:last-child {
+      border-top-right-radius: $border-radius-md;
+      border-bottom-right-radius: $border-radius-md;
+      border-left: 0;
+    }
+  }
+}
+
+.floatingLabel {
+  position: relative;
+  
+  .input {
+    padding-top: $spacing-lg;
+    
+    &:focus + .label,
+    &:not(:placeholder-shown) + .label {
+      transform: translateY(-50%) scale(0.8);
+      color: $color-primary;
+    }
+  }
+  
+  .label {
+    position: absolute;
+    left: $spacing-md;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all $transition-normal;
+    pointer-events: none;
+    background: $color-bg-primary;
+    padding: 0 $spacing-xs;
+  }
+}
