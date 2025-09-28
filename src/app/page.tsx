@@ -35,6 +35,13 @@ export default function Home() {
       description: 'Страница ререндерится с заданным интервалом',
       href: '/isr',
       color: 'bg-purple-500'
+    },
+    {
+      name: 'PPPR',
+      title: 'Partial Pre-Rendering',
+      description: 'Комбинация статического и динамического контента',
+      href: '/pppr',
+      color: 'bg-pink-500'
     }
   ];
 

@@ -9,6 +9,7 @@ const navItems = [
   { href: '/ssg', label: 'SSG' },
   { href: '/csr', label: 'CSR' },
   { href: '/isr', label: 'ISR' },
+  { href: '/pppr', label: 'PPPR' },
 ];
 
 export default function Navigation() {
